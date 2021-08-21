@@ -29,12 +29,13 @@ while keepPlaying:
         else:
           c.backward()
   #        print(abs(event.value)*99)
-   #       print ( "Down" )
+   #0       print ( "Down" )
       if event.axis == LEFT_RIGHT:
-        if event.value > 0:
+        c.control = int(abs(event.value) * 50)
+        if event.value < 0:
           c.left()
-          print( "Left" )
+#          print( "Left" )
         else:
           c.right()
-          print( "Right" )
+ #         print( "Right" )
 
