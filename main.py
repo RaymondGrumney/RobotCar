@@ -1,10 +1,10 @@
 #!/bin/python3
 import pygame
-from CarMove import *
+from CarMoveTankSteering import *
 
 XBOXONE_JOYPAD=1536
-UP_DOWN=1
-LEFT_RIGHT=0
+LEFT_AXIS=1
+RIGHT_AXIS=3
 
 pygame.init()
 joysticks = []
@@ -14,28 +14,25 @@ keepPlaying = True
 pygame.joystick.init()
 joysticks = [pygame.joystick.Joystick(x) for x in range(pygame.joystick.get_count())]
 
-c=CarMove()
+c=CarMoveTankSteering()
 
 while keepPlaying:
   clock.tick(60)
   for event in pygame.event.get():
     if event.type == XBOXONE_JOYPAD:
-      if event.axis == UP_DOWN:
-        c.speed=int(abs(event.value) * 99)
-        if event.value < 0:
-          c.forward()
-#          print(abs(event.value) * 99)
- #         print( "Up " )
+      if event.axis == RIGHT_AXIS:
+        c.a_speed=int(abs(event.value) * 92)
+        if event.value > 0:
+          c.a_forward()
+        elif event.value < 0:
+          c.a_backward()
         else:
-          c.backward()
-  #        print(abs(event.value)*99)
-   #0       print ( "Down" )
-      if event.axis == LEFT_RIGHT:
-        c.control = int(abs(event.value) * 50)
-        if event.value < 0:
-          c.left()
-#          print( "Left" )
+          c.a_stop()
+      if event.axis == LEFT_AXIS:
+        c.b_speed = int(abs(event.value) * 99)
+        if event.value > 0:
+          c.b_forward()
+        elif event.value < 0:
+          c.b_backward()
         else:
-          c.right()
- #         print( "Right" )
-
+          c.b_stop()
